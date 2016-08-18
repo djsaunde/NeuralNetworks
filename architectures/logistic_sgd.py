@@ -182,7 +182,7 @@ def load_data(dataset):
         print('Downloading data from %s' % origin)
         urllib.request.urlretrieve(origin, dataset)
 
-    print('... loading data')
+    print('...loading data')
 
     # Load the dataset
     with gzip.open(dataset, 'rb') as f:
@@ -340,7 +340,7 @@ def sgd_optimization(learning_rate=0.1, num_epochs=1000, dataset='../../data/mni
             
             if (iter + 1) % validation_frequency == 0:
                 # compute zero-one loss on validation set
-                validation_losses = [validate_model[i] for i in range(n_valid_batches)]
+                validation_losses = [validate_model(i) for i in range(n_valid_batches)]
                 this_validation_loss = numpy.mean(validation_losses)
                 
                 print(
@@ -362,7 +362,7 @@ def sgd_optimization(learning_rate=0.1, num_epochs=1000, dataset='../../data/mni
                     best_validation_loss = this_validation_loss
                     
                     # test it on the test set
-                    test_losses = [test_model[i] for i in range(n_test_batches)]
+                    test_losses = [test_model(i) for i in range(n_test_batches)]
                     test_score = numpy.mean(test_losses)
                     
                     print(
